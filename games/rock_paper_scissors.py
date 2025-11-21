@@ -5,10 +5,12 @@ rock paper scissors game let's play
 import random
 import time
 
+
 def menu():
     print("1. Rock")
     print("2. Paper")
     print("3. Scissors")
+
 
 def validation(answer: int) -> bool:
     valid_answers = [1, 2, 3, 0]
@@ -16,6 +18,7 @@ def validation(answer: int) -> bool:
         return True
     else:
         return False
+
 
 options_dict = {1: "Rock", 2: "Paper", 3: "Scissors"}
 
@@ -47,14 +50,16 @@ while end:
         print("Woah! This round of play was tied!")
         print("Computer answer:", options_dict[computer])
     elif (
-        (computer == ROCK and player == SCISSORS) or (computer == PAPER and player == ROCK) or
-        (computer == SCISSORS and player == PAPER)
+        (computer == ROCK and player == SCISSORS)
+        or (computer == PAPER and player == ROCK)
+        or (computer == SCISSORS and player == PAPER)
     ):
         print("You LOST! Did you lose to a computer?")
         computer_point += 1
         print("computer answer:", options_dict[computer])
     elif (
-        (player == ROCK and computer == SCISSORS) or (player == PAPER and computer == ROCK)
+        (player == ROCK and computer == SCISSORS)
+        or (player == PAPER and computer == ROCK)
         or (player == SCISSORS and computer == PAPER)
     ):
         print("You WON! Well Played!")
@@ -62,10 +67,10 @@ while end:
         print("computer answer:", options_dict[computer])
 
     if computer_point == 3:
-        print("*"*30, "Computer WON! embarrassing", "*"*30)
+        print("*" * 30, "Computer WON! embarrassing", "*" * 30)
         end = False
     elif player_point == 3:
-        print("*"*30, "You WON! Congrats", "*"*30)
+        print("*" * 30, "You WON! Congrats", "*" * 30)
         end = False
 
 print("\t Computer:", computer_point, "You:", player_point)
