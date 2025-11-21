@@ -2,7 +2,6 @@
 
 ![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
 
 A curated collection of beginner to intermediate Python mini-projects designed to help developers learn and practice programming concepts through hands-on examples. Perfect for Python enthusiasts looking to expand their skills!
 
@@ -18,10 +17,11 @@ A curated collection of beginner to intermediate Python mini-projects designed t
 
 - [Quick Start](#quick-start)
 - [Installation Guide](#installation-guide)
+- [Usage Examples](#usage-examples)
 - [Contributing](#contributing)
 - [License](#license)
 
-## 🚀 Quick Start <a id="quick-start"></a>
+## 🚀 <a id="quick-start"></a>Quick Start 
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -41,7 +41,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 💻 Installation Guide <a id="installation-guide"></a>
+## 💻 <a id="installation-guide"></a>Installation Guide
 
 ### Step 1: Environment Setup
 ```bash
@@ -57,7 +57,7 @@ source myenv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
-## 🎮 Usage Examples <a id="usage-examples"></a>
+## 🎮 <a id="usage-examples"></a>Usage Examples
 
 ### Running Binary Search
 ```bash
@@ -102,7 +102,7 @@ Python-mini-projects/
 - **Standard Library** - Built-in modules and functions
 - **Virtual Environment** - Dependency isolation
 
-## 🤝 Contributing <a id="contributing"></a>
+## 🤝 <a id="contributing"></a>Contributing
 
 We love contributions! Here's how you can help:
 
