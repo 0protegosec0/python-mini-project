@@ -1,6 +1,6 @@
 # Python Mini Projects Collection
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
 
@@ -21,7 +21,7 @@ A curated collection of beginner to intermediate Python mini-projects designed t
 - [Contributing](#contributing)
 - [License](#license)
 
-## 🚀 <a id="quick-start"></a>Quick Start
+## 🚀 Quick Start <a id="quick-start"></a>
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -41,7 +41,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 💻 <a id="installation-guide"></a>Installation Guide
+## 💻 Installation Guide <a id="installation-guide"></a>
 
 ### Step 1: Environment Setup
 ```bash
@@ -57,7 +57,7 @@ source myenv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
-## 🎮 <a id="usage-examples"></a>Usage Examples
+## 🎮 Usage Examples <a id="usage-examples"></a>
 
 ### Running Binary Search
 ```bash
@@ -102,7 +102,7 @@ Python-mini-projects/
 - **Standard Library** - Built-in modules and functions
 - **Virtual Environment** - Dependency isolation
 
-## 🤝 <a id="contributing"></a>Contributing
+## 🤝 Contributing <a id="contributing"></a>
 
 We love contributions! Here's how you can help:
 
