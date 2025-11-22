@@ -93,6 +93,11 @@ def hard_move(empty_blocks):
             return i
         board[i] = " "
         
+    betweens = [i for i in [1,3,5,7] if board[i] == " "]
+    if (board [0] == "X" and board [8] == "X") or (board [2] == "X" and board [6] == "X"):    
+        return random.choice(betweens)  
+    
+     
     corners = [i for i in [0,2,6,8] if board[i] == " "]
     if corners:
         return random.choice(corners)
