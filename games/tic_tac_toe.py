@@ -5,7 +5,8 @@ import random
 
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 win =[(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8),(0,4,8), (2,4,6)]
-
+player_point = 0
+computer_point = 0
 
 def game_menu():
     print("*"* 36)
@@ -36,6 +37,14 @@ def number_hint():
     print(" "* 10, "7 | 8 | 9")
     print()
     print("-"* 36)
+
+def reset_board():
+    if computer_point == 3 or player_point == 3:
+        pass
+    else:
+        for i in range(9):
+            board[i] = " "
+
 
 def show_board():
     print(" "* 10, board[0], "|", board[1], "|", board[2])
@@ -118,38 +127,71 @@ dificulty = game_menu()
 number_hint()
 print("-"* 10, "let's play X,O", "-"* 10)
 
+turn = random.choice(["player", "computer"])
+
 while True:
+    print(" "* 4, "computer= ", computer_point," "* 4, "you= ",player_point)
     show_board()
-    try:
-        player_move = int(input("choose one of the empty blocks by sending number 1-9\n 0 => EXIT\n"))-1
-    except ValueError:
-        print("please enter a number between 1 & 9")
-        continue
-    if player_move == -1:
+    if computer_point == 3:
+        print("*"* 10, "oh,sorry!computer is the finalist winner", "*"* 10)
         break
-    if player_move > 8 or player_move < -1:
-        print("please enter a number between 1 & 9")
-        continue
     
-    if board[player_move] == " ":
-        board[player_move] = "X"
+    if player_point == 3:
+        print("*"* 10, "great..you are the finalist winner", "*"* 10)
+        break
+    if turn == "player":
+        print("*" * 10, "now your turn", "*" * 10)
+        try:
+            player_move = int(input("choose one of the empty blocks by sending number 1-9\n 0 => EXIT\n"))-1
+        except ValueError:
+            print("please enter a number between 1 & 9")
+            continue
+        if player_move == -1:
+            break
+        if player_move > 8 or player_move < -1:
+            print("please enter a number between 1 & 9")
+            continue
+        
+        if board[player_move] == " ":
+            board[player_move] = "X"
+        else:
+            print("the blocks is not empty")
+            continue
+
+        if check_win("X"):
+            show_board()
+            print("*"* 10, "YOU WON", "*"*10)
+            player_point += 1
+            reset_board()
+            turn = random.choice(["player","computer"])
+            continue
+        
+        if " " not in board:
+            show_board()
+            print("*"* 10,"IT'S DRAW", "*"* 10)
+            reset_board()
+            turn = random.choice(["player","computer"])
+            continue
+        
+        turn = "computer"
     else:
-        print("the blocks is not empty")
-        continue
-
-    if check_win("X"):
-        show_board()
-        print("*"* 10, "YOU WON", "*"*10)
-        break
+        print("*" * 10, "computur turn", "*" * 10)
+        computer_move(dificulty)
+        if check_win("O"):
+            show_board()
+            print("*"* 10, "YOU LOSE", "*"* 10)
+            reset_board()
+            computer_point += 1
+            turn = random.choice(["player","computer"])
+            continue
+        
+        if " " not in board:
+            show_board()
+            print("*"* 10,"IT'S DRAW", "*"* 10)
+            reset_board()
+            turn = random.choice(["player","computer"])
+            continue
+        
+        turn = "player"
     
-    if " " not in board:
-        show_board()
-        print("*"* 10,"IT'S DRAW", "*"* 10)
-        break
-
-    computer_move(dificulty)
-    if check_win("O"):
-        show_board()
-        print("*"* 10, "YOU LOSE", "*"* 10)
-        break
-
+    
