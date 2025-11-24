@@ -1,7 +1,18 @@
 '''
 merge sort,stable and fast sort but use more Ram space.
 '''
+import time
 import random
+
+def time_merge_sort(array):
+    start = time.time()
+    sorted_array = merge_sort(array)
+    end = time.time()
+    
+    excution_time = end - start
+    print(f"Excution_time = {excution_time: .6f}")
+    return sorted_array
+
 
 def merge_sort(array):
     if len(array) <= 1:
@@ -30,4 +41,4 @@ def merge(left,right):
     return result
 
 test_array = [8,5,3,9,11,17,4,26,10,7]
-print("sorted array =", merge_sort(test_array))
+print("sorted array =", time_merge_sort(test_array))
