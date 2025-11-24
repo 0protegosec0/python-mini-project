@@ -40,5 +40,5 @@ def merge(left,right):
     
     return result
 
-test_array = [8,5,3,9,11,17,4,26,10,7]
+test_array = [random.randint(1,1000) for _ in range(1000)]
 print("sorted array =", time_merge_sort(test_array))
