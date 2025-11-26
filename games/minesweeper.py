@@ -77,13 +77,19 @@ print("!the mines were planted!")
 while True:
     print_board(board)
     try:
-        user_command = input("Enter you choice:(open row col)").split()
+        user_command = input("Enter you choice:(open row col)\n EXIT= 0\n").split()
+        
+        if user_command[0] == "0":
+            print("GOOD BYE!")
+            break
+        
         if user_command[0] != "open":
             print("invalid command,e.g:open 1 2")
             continue
         
         r = int(user_command[1])
         c = int(user_command[2])
+           
     
     except:
         print("invalid command,e.g:open 1 2")
