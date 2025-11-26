@@ -3,7 +3,7 @@ simple Minesweeper game code for learning how does it work
 '''
 import random
 
-def creat_board(size=5, mines=5):
+def create_board(size=5, mines=5):
     board = [[" " for _ in range(size)] for _ in range(size)]
     mine_positions = set()
     while len(mine_positions) < mines:
@@ -30,11 +30,14 @@ def neighbors_count(r, c, mine_positions, size):
     return count
 
 def print_board(board):
-    print("\n  " + " ".join(str(i) for i in range(len(board))))
-    print("  " + "--" * len(board))
-    for i, row in enumerate(board):
-        print(i, "|", " ".join(row))
-        
+    size = len(board)
+    print("\n    " + " ".join(f"{i:2}" for i in range(size)))
+    print("   " + "---" * size)
+    
+    for r in range(size):
+        row = " ".join(f"{cell:2}" for cell in board[r])
+        print(f"{r:2} | {row}")
+
     
 def open_cell(r, c, board, mine_positions, size):
     if (r, c) in mine_positions:
@@ -50,7 +53,7 @@ def open_cell(r, c, board, mine_positions, size):
 
 size = 5
 mines = 5
-board, mine_position = creat_board(size)
+board, mine_position = create_board(size)
 print("The bombs were planted")
 
 while True:
