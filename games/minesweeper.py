@@ -3,78 +3,100 @@ simple Minesweeper game code for learning how does it work
 '''
 import random
 
-def create_board(size=5, mines=5):
-    board = [[" " for _ in range(size)] for _ in range(size)]
+def create_board(size=5,mines=5):
+    board = [["□" for _ in range(size)] for _ in range(size)]
     mine_positions = set()
     while len(mine_positions) < mines:
         mine_positions.add((
-        random.randint(0, size -1),
-        random.randint(0, size -1)))
-    #for test only
-    print("mine position=", mine_positions)
+            random.randint(0,size-1),
+            random.randint(0,size-1)
+        ))
+    print("mine positions:", mine_positions)    
     return board, mine_positions
+
+def print_board(board):
+    size = len(board)
+    print("\n   ", " ".join(f"{i:2}" for i in range(size)))
     
+    print("   ", "---" * size)
+
+    for r in range(size):
+        row = " ".join(f"{cell:2}" for cell in board[r])
+        print(f"{r:2} | {row}")
+    
+    
+
 def neighbors_count(r, c, mine_positions, size):
-    neighbors = [ 
+    neighbors = [
     (r-1,c-1), (r-1,c), (r-1,c+1),
     (r,c-1),            (r,c+1),
     (r+1,c-1), (r+1,c), (r+1,c+1)
     ]
-    count = 0
-    
-    for nr , nc in neighbors:
-        if 0 <= nr < size and 0 <= nc < size:
-            if (nr,nc) in mine_positions:
-                count += 1
+    adjacent_mines_count = 0
+    for nr,nc in neighbors:
+       if 0 <= nr < size and 0 <= nc < size:
+           if (nr,nc) in mine_positions:
+               adjacent_mines_count += 1
             
-    return count
+    return adjacent_mines_count
 
-def print_board(board):
-    size = len(board)
-    print("\n    " + " ".join(f"{i:2}" for i in range(size)))
-    print("   " + "---" * size)
+def open_cell(r, c, board, mine_positions, size, visited):
     
-    for r in range(size):
-        row = " ".join(f"{cell:2}" for cell in board[r])
-        print(f"{r:2} | {row}")
+    if (r,c) in visited:
+        return True
+    visited.add((r,c))
+        
 
-    
-def open_cell(r, c, board, mine_positions, size):
     if (r, c) in mine_positions:
-        board[r][c] = "💣"
+        board[r][c] = "💣" 
         print_board(board)
-        print("\n💥 BOOM! You hit a mine. Game over.")
+        print("\n💥 BOOM! You hit a mine. Game over.") 
         return False
     
     count = neighbors_count(r, c, mine_positions, size)
-    board [r][c] = str(count)
+    board[r][c] = str(count)
+    
+    if count == 0 :
+        neighbors = [
+    (r-1,c-1), (r-1,c), (r-1,c+1),
+    (r,c-1),            (r,c+1),
+    (r+1,c-1), (r+1,c), (r+1,c+1)
+    ]
+        for nr, nc in neighbors:
+            if 0 <= nr < size and 0 <= nc < size:
+                open_cell(nr, nc, board, mine_positions, size, visited)
     
     return True
 
 size = 5
 mines = 5
-board, mine_position = create_board(size)
-print("The bombs were planted")
+visited = set()
+board,mine_positions = create_board(size)
+print("!the mines were planted!")
 
 while True:
     print_board(board)
-    
     try:
-        user_command = input("Enter your choice(open row col): ").split()
+        user_command = input("Enter you choice:(open row col)").split()
         if user_command[0] != "open":
-            print("use command : (open row col)")
+            print("invalid command,e.g:open 1 2")
             continue
         
         r = int(user_command[1])
         c = int(user_command[2])
-        
+    
     except:
-        print("invalid input..use command example: open 1 2")
+        print("invalid command,e.g:open 1 2")
         continue
-    if not (0 <= r < size and 0 <= c < size):
+    if not (0 <= r < size and  0 <= c < size ):
         print("out of range")
         continue
     
-    result = open_cell(r, c, board, mine_position, size)
+    result = open_cell(r, c, board, mine_positions, size, visited)
     if not result:
+        break
+    
+    if len(visited) == size * size - mines:
+        print_board(board)
+        print("\n🎉 Congratulations! You won!")
         break
