@@ -18,6 +18,7 @@ def create_board(size=5,mines=5):
     return board, mine_positions
 
 def print_board(board):
+    print(f"            | ⏱️ TIME: {minutes}:{elapsed_time:02} |")
     size = len(board)
     print("\n   ", " ".join(f"{i:2}" for i in range(size)))
     
@@ -98,7 +99,7 @@ def live_time():
             minutes += 1
             elapsed_time = 0
                 
-        print(f"\r ⏱️ TIME: {minutes}:{elapsed_time:02} |", end="", flush=True)
+        
         
 
 size = 5
