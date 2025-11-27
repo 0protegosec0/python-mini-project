@@ -58,7 +58,9 @@ def open_cell(r, c, board, mine_positions, size, visited):
         
 
     if (r, c) in mine_positions:
-        board[r][c] = "💣" 
+        for br,bc in mine_positions:
+            board[br][bc] = "💣" 
+        board[r][c] = "💥"
         print_board(board)
         print("\n💥 BOOM! You hit a mine. Game over.") 
         return False
