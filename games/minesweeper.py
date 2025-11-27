@@ -2,6 +2,7 @@
 simple Minesweeper game code for learning how does it work
 '''
 import random
+import time
 
 def create_board(size=5,mines=5):
     board = [["□" for _ in range(size)] for _ in range(size)]
@@ -82,44 +83,56 @@ def open_cell(r, c, board, mine_positions, size, visited):
 
 size = 5
 mines = 5
+start_time = None
+end_time = None
 visited = set()
 board,mine_positions = create_board(size)
 print("!the mines were planted!")
 
 while True:
     print_board(board)
+    user_command = input("Enter you choice:(open/flag row col)\n EXIT= 0\n").split()
+    
+    if user_command[0] == "0":
+        print("GOOD BYE!")
+        break
+    
+    action = user_command[0].lower()
+    if action not in ["open", "flag"]:
+        print("invalid command,e.g:open 1 2")
+        continue
+    
     try:
-        user_command = input("Enter you choice:(open/flag row col)\n EXIT= 0\n").split()
-        
-        if user_command[0] == "0":
-            print("GOOD BYE!")
-            break
-        if (user_command[0] != "open" and user_command[0] != "flag"):
-            print("invalid command,e.g:open 1 2")
-            continue
-        
         r = int(user_command[1])
         c = int(user_command[2])
            
-    
-    except:
+    except (ValueError,IndexError):
         print("invalid command,e.g:open 1 2")
         continue
+    
     if not (0 <= r < size and  0 <= c < size ):
         print("out of range")
         continue
     
-    if user_command[0] == "open":
+    
+    if action == "open":
+        if start_time is None:
+            start_time = time.time()
+            
         result = open_cell(r, c, board, mine_positions, size, visited)
         if not result:
+            end_time = time.time()
+            print(f" time = {end_time - start_time:.2f} seconds")
             break
-    else:
+    elif action == "flag":
         result = flag_cell(r, c, board)
         if not result:
             print("you can't plant a flag on oppend cells!")
             continue
     
     if len(visited) == size * size - mines:
+        end_time = time.time()
         print_board(board)
         print("\n🎉 Congratulations! You won!")
+        print(f" time = {end_time - start_time:.2f} seconds")
         break
