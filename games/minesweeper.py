@@ -11,7 +11,7 @@ def create_board(size=5,mines=5):
             random.randint(0,size-1),
             random.randint(0,size-1)
         ))
-    print("mine positions:", mine_positions)    
+           
     return board, mine_positions
 
 def print_board(board):
@@ -39,6 +39,16 @@ def neighbors_count(r, c, mine_positions, size):
                adjacent_mines_count += 1
             
     return adjacent_mines_count
+
+def flag_cell(r, c, board):
+    
+    if board[r][c] not in ["□","🚩"]:
+        return False
+    
+    board[r][c] = "🚩" if board[r][c] == "□" else "□"
+    return True
+   
+        
 
 def open_cell(r, c, board, mine_positions, size, visited):
     
@@ -77,13 +87,12 @@ print("!the mines were planted!")
 while True:
     print_board(board)
     try:
-        user_command = input("Enter you choice:(open row col)\n EXIT= 0\n").split()
+        user_command = input("Enter you choice:(open/flag row col)\n EXIT= 0\n").split()
         
         if user_command[0] == "0":
             print("GOOD BYE!")
             break
-        
-        if user_command[0] != "open":
+        if (user_command[0] != "open" and user_command[0] != "flag"):
             print("invalid command,e.g:open 1 2")
             continue
         
@@ -98,9 +107,15 @@ while True:
         print("out of range")
         continue
     
-    result = open_cell(r, c, board, mine_positions, size, visited)
-    if not result:
-        break
+    if user_command[0] == "open":
+        result = open_cell(r, c, board, mine_positions, size, visited)
+        if not result:
+            break
+    else:
+        result = flag_cell(r, c, board)
+        if not result:
+            print("you can't plant a flag on oppend cells!")
+            continue
     
     if len(visited) == size * size - mines:
         print_board(board)
