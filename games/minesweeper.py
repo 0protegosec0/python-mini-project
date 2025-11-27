@@ -3,6 +3,8 @@ simple Minesweeper game code for learning how does it work
 '''
 import random
 import time
+import threading
+
 
 def create_board(size=5,mines=5):
     board = [["□" for _ in range(size)] for _ in range(size)]
@@ -81,19 +83,39 @@ def open_cell(r, c, board, mine_positions, size, visited):
     
     return True
 
+elapsed_time = 0
+stop_time = False
+minutes = 0
+
+def live_time():
+    global elapsed_time
+    global minutes
+    while not stop_time:
+        time.sleep(1)
+        elapsed_time += 1
+        
+        if elapsed_time == 60:
+            minutes += 1
+            elapsed_time = 0
+                
+        print(f"\r ⏱️ TIME: {minutes}:{elapsed_time:02} |", end="", flush=True)
+        
+
 size = 5
 mines = 5
-start_time = None
-end_time = None
 visited = set()
 board,mine_positions = create_board(size)
+time_thread = None
 print("!the mines were planted!")
+
 
 while True:
     print_board(board)
     user_command = input("Enter you choice:(open/flag row col)\n EXIT= 0\n").split()
     
     if user_command[0] == "0":
+        stop_time = True
+        time_thread.join()
         print("GOOD BYE!")
         break
     
@@ -113,16 +135,17 @@ while True:
     if not (0 <= r < size and  0 <= c < size ):
         print("out of range")
         continue
+    if time_thread == None:
+        stop_time = False
+        time_thread = threading.Thread(target=live_time)
+        time_thread.start()
     
-    
-    if action == "open":
-        if start_time is None:
-            start_time = time.time()
-            
+    if action == "open":  
         result = open_cell(r, c, board, mine_positions, size, visited)
         if not result:
-            end_time = time.time()
-            print(f" time = {end_time - start_time:.2f} seconds")
+            stop_time = True
+            time_thread.join()
+            print(f"\n           ⏱️ FINAL TIME: {minutes}:{elapsed_time:02} ")
             break
     elif action == "flag":
         result = flag_cell(r, c, board)
@@ -131,8 +154,9 @@ while True:
             continue
     
     if len(visited) == size * size - mines:
-        end_time = time.time()
+        stop_time = True
+        time_thread.join()
         print_board(board)
         print("\n🎉 Congratulations! You won!")
-        print(f" time = {end_time - start_time:.2f} seconds")
+        print(f"\n           ⏱️ FINAL TIME: {minutes}:{elapsed_time:02} ")
         break
