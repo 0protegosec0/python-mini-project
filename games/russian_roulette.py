@@ -23,12 +23,12 @@ def loading_time():
     print()
     
 shot = 7
+print("_"* 10, "russian roulette", "_"* 10)
 while True:
-    print("_"* 10, "russian roulette", "_"* 10)
-    print(f"remianing cartridge: {shot}\n")
+    print(f"remianing cartridge: {shot}", " "* 10, "it's your turn\n")
     
     try:
-        user_answer = input("It's ypur turn!Enter 's' to shot or 'x' to run away!")
+        user_answer = input("Enter 's' to shot \n or 'x' to run away!")
         action = user_answer.lower()
     
         if action[0] not in ['s', 'x']:
@@ -52,7 +52,7 @@ while True:
             print("🔫 blank cartridge,do you want some water?\n")
             loading_time()
             
-    
+    print(" "* 10, "it's computer turn", " "* 10)
     computer_die = random_shot(shot)
     shot -= 1
     if computer_die:
