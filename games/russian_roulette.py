@@ -2,7 +2,7 @@
 let's play russian roulette who will alive?
 '''
 import random
-
+import time
 
 def random_shot(shot):
     gun_shot = random.randint(1,shot)
@@ -11,6 +11,16 @@ def random_shot(shot):
         return True
     else:
         return False
+
+def loading_time():
+    bar = ["□"]*12
+    for i in range(len(bar)):
+        bar[i] = "▪"
+        bar_str = "".join(bar)
+        percent = int(((i+1) / len(bar))*100)
+        print(f"\r loading: {bar_str} {percent}%", end=" ", flush=True)
+        time.sleep(0.3)
+    print()
     
 shot = 7
 while True:
@@ -40,6 +50,7 @@ while True:
             break
         else:
             print("🔫 blank cartridge,do you want some water?\n")
+            loading_time()
             
     
     computer_die = random_shot(shot)
@@ -50,5 +61,6 @@ while True:
         break
     else:
         print("🔫 blank cartridge,computer alived\n")
+        loading_time()
         
          
