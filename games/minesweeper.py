@@ -116,7 +116,6 @@ while True:
     
     if user_command[0] == "0":
         stop_time = True
-        time_thread.join()
         print("GOOD BYE!")
         break
     
