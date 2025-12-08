@@ -4,6 +4,7 @@ simple Minesweeper game code for learning how does it work
 import random
 import time
 import threading
+import os
 
 
 def create_board(size=5,mines=5):
@@ -28,7 +29,11 @@ def print_board(board):
         row = " ".join(f"{cell:2}" for cell in board[r])
         print(f"{r:2} | {row}")
     
-    
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def neighbors_count(r, c, mine_positions, size):
     neighbors = [
@@ -111,6 +116,7 @@ print("!the mines were planted!")
 
 
 while True:
+    clear()
     print_board(board)
     user_command = input("Enter you choice:(open/flag row col)\n EXIT= 0\n").split()
     
@@ -122,6 +128,7 @@ while True:
     action = user_command[0].lower()
     if action not in ["open", "flag"]:
         print("invalid command,e.g:open 1 2")
+        time.sleep(2)
         continue
     
     try:
@@ -130,6 +137,7 @@ while True:
            
     except (ValueError,IndexError):
         print("invalid command,e.g:open 1 2")
+        time.sleep(1.5)
         continue
     
     if not (0 <= r < size and  0 <= c < size ):
