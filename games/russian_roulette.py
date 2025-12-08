@@ -3,6 +3,7 @@ let's play russian roulette who will alive?
 '''
 import random
 import time
+import os
 
 def random_shot(shot):
     gun_shot = random.randint(1,shot)
@@ -21,10 +22,17 @@ def loading_time():
         print(f"\r loading: {bar_str} {percent}%", end=" ", flush=True)
         time.sleep(0.3)
     print()
+
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
     
 shot = 7
-print("_"* 10, "russian roulette", "_"* 10)
 while True:
+    clear()
+    print("_"* 10, "russian roulette", "_"* 10)
     print(f"remianing cartridge: {shot}", " "* 10, "it's your turn\n")
     
     try:
