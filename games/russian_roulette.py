@@ -41,13 +41,16 @@ while True:
     
         if action[0] not in ['s', 'x']:
             print("invalid answer!scard?")
+            time.sleep(2)
             continue
     except (ValueError, IndexError):
         print("invalid answer!just say 's' or 'x'!")
+        time.sleep(2)
         continue
     
     if action == 'x':
         print("hey man no way to escape,comeback to table!")
+        time.sleep(2)
         continue
     elif action == 's':
         die = random_shot(shot)
